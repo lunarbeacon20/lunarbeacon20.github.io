@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日主题大赛在线-每日大赛主题更新_吃瓜黑料爆料热点在线看</title>
+<meta name="description" content="每日主题大赛在线聚合当日大赛主题与吃瓜黑料爆料热点，按时间线呈现热门主题卡片、爆料要点与讨论入口，方便快速浏览当天大赛内容。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2315121e'/%3E%3Ccircle cx='32' cy='32' r='17' fill='none' stroke='%23ff5c7a' stroke-width='4'/%3E%3Cpath d='M32 15v34M15 32h34' stroke='%23ffd166' stroke-width='3'/%3E%3C/svg%3E">
+<style>
+  :root{
+    --ink:#15121e;
+    --ink-2:#241f33;
+    --paper:#f7f4ef;
+    --card:#ffffff;
+    --line:#e3ddd3;
+    --rose:#ff5c7a;
+    --gold:#ffb703;
+    --mint:#2ec4a6;
+    --text:#1d1a26;
+    --muted:#6b6478;
+    --radius:16px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    background:var(--paper);
+    color:var(--text);
+    line-height:1.75;
+    font-size:16px;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none}
+  img,svg{display:block;max-width:100%}
+  .wrap{width:min(1120px,92vw);margin:0 auto}
+
+  /* Header */
+  header.site{
+    background:var(--ink);
+    color:#fff;
+    position:sticky;top:0;z-index:50;
+    border-bottom:1px solid rgba(255,255,255,.08);
+  }
+  .nav-bar{
+    display:flex;align-items:center;justify-content:space-between;
+    gap:16px;padding:12px 0;
+  }
+  .brand{display:flex;align-items:center;gap:10px;min-width:0}
+  .brand svg{width:34px;height:34px;flex:none}
+  .brand-text{
+    font-size:17px;font-weight:800;letter-spacing:.5px;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  }
+  nav.links{display:flex;gap:22px;font-size:14.5px;color:#cfc8dd}
+  nav.links a{transition:color .2s}
+  nav.links a:hover{color:var(--gold)}
+  .nav-cta{
+    background:var(--rose);color:#fff;font-size:14px;font-weight:700;
+    padding:9px 18px;border-radius:999px;white-space:nowrap;
+    transition:transform .15s,background .2s;
+  }
+  .nav-cta:hover{background:#ff3d61;transform:translateY(-1px)}
+  .menu-btn{display:none;background:none;border:1px solid rgba(255,255,255,.25);color:#fff;
+    border-radius:10px;padding:6px 10px;font-size:14px;cursor:pointer}
+
+  /* Hero */
+  .hero{
+    background:
+      radial-gradient(900px 420px at 82% -10%,rgba(255,92,122,.35),transparent 65%),
+      radial-gradient(700px 380px at 8% 110%,rgba(46,196,166,.22),transparent 60%),
+      var(--ink-2);
+    color:#fff;padding:56px 0 60px;position:relative;overflow:hidden;
+  }
+  .hero::after{
+    content:"";position:absolute;inset:auto -60px -140px auto;
+    width:340px;height:340px;border-radius:50%;
+    border:2px dashed rgba(255,183,3,.25);
+  }
+  .hero-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:44px;align-items:center;position:relative;z-index:2}
+  .tagline{
+    display:inline-flex;align-items:center;gap:8px;
+    background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);
+    border-radius:999px;padding:5px 14px;font-size:13px;color:#ffe4a3;margin-bottom:18px;
+  }
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--mint);box-shadow:0 0 0 4px rgba(46,196,166,.2)}
+  h1{
+    font-size:clamp(28px,4.4vw,46px);line-height:1.25;font-weight:900;letter-spacing:.5px;
+  }
+  h1 .hl{color:var(--gold)}
+  .hero p.lead{
+    margin-top:16px;color:#d6cfe4;font-size:16px;max-width:34em;
+  }
+  .hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:12px 24px;border-radius:12px;font-weight:700;font-size:15px;
+    transition:transform .15s,box-shadow .2s;
+  }
+  .btn-primary{background:var(--rose);color:#fff;box-shadow:0 10px 24px -10px rgba(255,92,122,.9)}
+  .btn-primary:hover{transform:translateY(-2px)}
+  .btn-ghost{border:1px solid rgba(255,255,255,.3);color:#fff}
+  .btn-ghost:hover{background:rgba(255,255,255,.08)}
+  .hero-card{
+    background:rgba(255,255,255,.07);
+    border:1px solid rgba(255,255,255,.15);
+    border-radius:20px;padding:22px;
+    backdrop-filter:blur(6px);
+  }
+  .hero-card h2{font-size:14px;color:#ffe4a3;letter-spacing:1px;font-weight:700;margin-bottom:14px}
+  .mini-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px dashed rgba(255,255,255,.12);font-size:14px;color:#e6e0f0}
+  .mini-row:last-child{border-bottom:0;padding-bottom:0}
+  .mini-time{font-variant-numeric:tabular-nums;color:var(--gold);font-weight:700;font-size:13px;flex:none}
+
+  /* Section basics */
+  section{padding:64px 0}
+  .sec-head{margin-bottom:32px;max-width:52em}
+  .eyebrow{
+    font-size:12.5px;font-weight:800;letter-spacing:2.5px;color:var(--rose);
+    text-transform:uppercase;margin-bottom:8px;
+  }
+  h2.sec-title{font-size:clamp(22px,2.6vw,30px);font-weight:900;letter-spacing:.3px}
+  .sec-desc{margin-top:10px;color:var(--muted);font-size:15.5px}
+
+  /* Topic grid */
+  .filter-bar{
+    display:flex;flex-wrap:wrap;gap:10px;margin-bottom:26px;
+  }
+  .chip{
+    border:1px solid var(--line);background:#fff;color:var(--muted);
+    padding:8px 18px;border-radius:999px;font-size:14px;font-weight:600;cursor:pointer;
+    transition:.2s;
+  }
+  .chip:hover{border-color:var(--rose);color:var(--rose)}
+  .chip.active{background:var(--ink);border-color:var(--ink);color:#fff}
+  .topic-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .topic{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:24px 22px;display:flex;flex-direction:column;gap:12px;
+    transition:transform .18s,box-shadow .2s,border-color .2s;
+  }
+  .topic:hover{transform:translateY(-4px);box-shadow:0 18px 34px -22px rgba(21,18,30,.45);border-color:#cfc6b8}
+  .topic-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+  .topic-badge{
+    font-size:12px;font-weight:800;padding:3px 11px;border-radius:999px;
+    background:#fff0f3;color:#d92d55;letter-spacing:.5px;
+  }
+  .topic-badge.mint{background:#e6f8f3;color:#0f8a72}
+  .topic-badge.gold{background:#fff6e0;color:#a06a00}
+  .topic h3{font-size:18.5px;font-weight:800;line-height:1.45}
+  .topic p{font-size:14.5px;color:var(--muted);flex:1}
+  .topic-meta{display:flex;align-items:center;justify-content:space-between;font-size:13px;color:#948da3;border-top:1px dashed var(--line);padding-top:12px}
+  .topic-meta .go{color:var(--rose);font-weight:700}
+  .empty-note{display:none;padding:34px;text-align:center;color:var(--muted);background:#fff;border:1px dashed var(--line);border-radius:var(--radius)}
+
+  /* Timeline */
+  .timeline-sec{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .timeline{position:relative;padding-left:26px}
+  .timeline::before{
+    content:"";position:absolute;left:6px;top:6px;bottom:6px;width:2px;
+    background:linear-gradient(180deg,var(--rose),var(--gold),var(--mint));
+    border-radius:2px;
+  }
+  .tl-item{position:relative;padding:0 0 30px 12px}
+  .tl-item:last-child{padding-bottom:0}
+  .tl-item::before{
+    content:"";position:absolute;left:-26px;top:7px;width:14px;height:14px;border-radius:50%;
+    background:#fff;border:3px solid var(--rose);
+  }
+  .tl-item:nth-child(2)::before{border-color:var(--gold)}
+  .tl-item:nth-child(3)::before{border-color:var(--mint)}
+  .tl-time{font-size:13px;font-weight:800;color:var(--rose);letter-spacing:.5px;margin-bottom:4px}
+  .tl-item h3{font-size:17.5px;font-weight:800;margin-bottom:6px}
+  .tl-item p{font-size:14.8px;color:var(--muted);max-width:52em}
+
+  /* Explainer */
+  .two-col{display:grid;grid-template-columns:1.05fr .95fr;gap:44px;align-items:start}
+  .explain p{font-size:15.5px;color:#3b3547;margin-bottom:16px}
+  .explain p strong{color:var(--ink);font-weight:800}
+  .stat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+  .stat{
+    background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px;
+  }
+  .stat .num{font-size:28px;font-weight:900;color:var(--ink);line-height:1.2}
+  .stat .num span{font-size:14px;color:var(--rose);margin-left:2px}
+  .stat .lbl{font-size:13.5px;color:var(--muted);margin-top:6px}
+  .note{
+    margin-top:18px;font-size:13.5px;color:#8a8398;background:#fff;
+    border-left:3px solid var(--gold);padding:12px 16px;border-radius:0 10px 10px 0;
+  }
+
+  /* FAQ */
+  .faq-sec{background:var(--ink);color:#fff}
+  .faq-sec .sec-desc{color:#a79fba}
+  .faq-sec .eyebrow{color:var(--gold)}
+  .faq{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .faq-item{
+    background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);
+    border-radius:14px;padding:22px;
+  }
+  .faq-item h3{font-size:16.5px;font-weight:800;color:#fff;margin-bottom:8px}
+  .faq-item p{font-size:14.5px;color:#c4bcd6}
+
+  /* Download / CTA strip */
+  .cta-strip{
+    background:linear-gradient(120deg,#ff5c7a,#ff8a5c);
+    border-radius:22px;padding:38px 34px;color:#fff;
+    display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:22px;
+  }
+  .cta-strip h2{font-size:clamp(20px,2.4vw,26px);font-weight:900;line-height:1.4}
+  .cta-strip p{font-size:14.5px;color:#ffe9ee;margin-top:6px;max-width:36em}
+  .download-btn{
+    display:inline-flex;align-items:center;gap:9px;
+    background:#fff;color:#d92d55;font-weight:800;font-size:15px;
+    padding:13px 28px;border-radius:12px;white-space:nowrap;
+    pointer-events:none;opacity:.95;
+  }
+
+  /* Footer */
+  footer.site{
+    background:var(--ink);color:#a79fba;padding:46px 0 30px;font-size:14px;
+  }
+  .foot-top{display:flex;flex-wrap:wrap;justify-content:space-between;gap:28px;padding-bottom:26px;border-bottom:1px solid rgba(255,255,255,.1)}
+  .foot-brand{display:flex;align-items:center;gap:10px;color:#fff;font-weight:800;font-size:16px}
+  .foot-brand svg{width:30px;height:30px}
+  .foot-links{display:flex;flex-wrap:wrap;gap:26px}
+  .foot-links a:hover{color:var(--gold)}
+  .foot-bottom{padding-top:20px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;font-size:13px;color:#7d7590}
+  .foot-bottom .kw{color:#a79fba}
+
+  @media (max-width:900px){
+    .hero-grid{grid-template-columns:1fr;gap:30px}
+    .topic-grid{grid-template-columns:1fr 1fr}
+    .two-col{grid-template-columns:1fr;gap:30px}
+    .faq{grid-template-columns:1fr}
+  }
+  @media (max-width:680px){
+    nav.links{display:none}
+    nav.links.open{
+      display:flex;flex-direction:column;gap:0;
+      position:absolute;left:0;right:0;top:100%;
+      background:var(--ink-2);padding:8px 4vw 16px;
+      border-bottom:1px solid rgba(255,255,255,.1);
+    }
+    nav.links.open a{padding:11px 0;border-bottom:1px dashed rgba(255,255,255,.1)}
+    .menu-btn{display:inline-block}
+    .nav-cta{padding:8px 14px;font-size:13px}
+    .brand-text{font-size:15px}
+    section{padding:46px 0}
+    .hero{padding:38px 0 44px}
+    .topic-grid{grid-template-columns:1fr}
+    .stat-grid{gap:12px}
+    .cta-strip{padding:28px 22px;border-radius:18px}
+    .download-btn{width:100%;justify-content:center}
+    .foot-links{gap:16px}
+  }
+</style>
+    <script type="text/javascript" src="https://cdn.bdwgg.com/mh.js"></script>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap nav-bar">
+    <div class="brand">
+      <svg viewBox="0 0 64 64" aria-hidden="true">
+        <rect width="64" height="64" rx="14" fill="#241f33"/>
+        <circle cx="32" cy="32" r="17" fill="none" stroke="#ff5c7a" stroke-width="4"/>
+        <path d="M32 15v34M15 32h34" stroke="#ffb703" stroke-width="3"/>
+      </svg>
+      <span class="brand-text">每日主题大赛在线</span>
+    </div>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="navLinks">菜单</button>
+    <nav class="links" id="navLinks">
+      <a href="#topics">今日主题</a>
+      <a href="#timeline">热点时间线</a>
+      <a href="#about">怎么逛</a>
+      <a href="#faq">常见疑问</a>
+    </nav>
+    <a class="nav-cta" href="#topics">看今日大赛</a>
+  </div>
+</header>
+
+<main>
+  <!-- Hero -->
+  <div class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="tagline"><span class="dot"></span>每天一场主题，热度实时翻新</span>
+        <h1>每日主题大赛在线</h1>
+        <p class="lead">这里把当天的大赛主题集中摆在一页：谁在爆料、哪条黑料被反复提及、吃瓜群众又在追什么。打开即可按主题浏览，不用来回跳转。</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#topics">进入今日主题</a>
+          <a class="btn btn-ghost" href="#timeline">看热点时间线</a>
+        </div>
+      </div>
+      <aside class="hero-card" aria-label="今日看点速览">
+        <h2>今日看点速览</h2>
+        <div class="mini-row"><span class="mini-time">09:20</span><span>新主题上线，爆料首帖出现</span></div>
+        <div class="mini-row"><span class="mini-time">13:45</span><span>黑料截图被二次转发，讨论升温</span></div>
+        <div class="mini-row"><span class="mini-time">18:10</span><span>吃瓜区补充当事人回应</span></div>
+        <div class="mini-row"><span class="mini-time">22:30</span><span>当日主题热度收口，归档待明日</span></div>
+      </aside>
+    </div>
+  </div>
+
+  <!-- Topics -->
+  <section id="topics">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow">Today's Topics</div>
+        <h2 class="sec-title">今日大赛主题</h2>
+        <p class="sec-desc">按主题类别筛选，每张卡片对应一个独立话题：主题名、爆料方向、讨论热度与更新时间一目了然。每日主题大赛在线的主题列表随当日内容更新。</p>
+      </div>
+
+      <div class="filter-bar" role="group" aria-label="主题筛选">
+        <button class="chip active" data-filter="all">全部</button>
+        <button class="chip" data-filter="hot">吃瓜爆料</button>
+        <button class="chip" data-filter="review">话题复盘</button>
+        <button class="chip" data-filter="talk">讨论现场</button>
+      </div>
+
+      <div class="topic-grid" id="topicGrid">
+        <article class="topic" data-cat="hot">
+          <div class="topic-top"><span class="topic-badge">爆料</span><span style="font-size:13px;color:#948da3">今日 09:20</span></div>
+          <h3>主题一：截图先行的爆料局</h3>
+          <p>以聊天截图和录屏为起点，讨论集中在时间线是否对得上、当事人此前说法是否一致。吃瓜区补充了多方说法，暂未有定论。</p>
+          <div class="topic-meta"><span>讨论热度 · 高</span><span class="go">查看主题 →</span></div>
+        </article>
+
+        <article class="topic" data-cat="hot">
+          <div class="topic-top"><span class="topic-badge">黑料</span><span style="font-size:13px;color:#948da3">今日 11:05</span></div>
+          <h3>主题二：旧帖翻出的黑料串</h3>
+          <p>网友把散落在不同时间的旧帖整理成串，指出前后矛盾之处。整理帖本身也成了讨论对象，有人质疑截取是否完整。</p>
+          <div class="topic-meta"><span>讨论热度 · 中高</span><span class="go">查看主题 →</span></div>
+        </article>
+
+        <article class="topic" data-cat="review">
+          <div class="topic-top"><span class="topic-badge mint">复盘</span><span style="font-size:13px;color:#948da3">今日 13:45</span></div>
+          <h3>主题三：昨日热点的今日复盘</h3>
+          <p>把前一日的大赛主题按时间顺序重排，标出关键节点与信息缺口。适合错过直播式更新的人快速补课。</p>
+          <div class="topic-meta"><span>讨论热度 · 中</span><span class="go">查看主题 →</span></div>
+        </article>
+
+        <article class="topic" data-cat="talk">
+          <div class="topic-top"><span class="topic-badge gold">讨论</span><span style="font-size:13px;color:#948da3">今日 16:30</span></div>
+          <h3>主题四：评论区里的观点对撞</h3>
+          <p>同一件事，持不同看法的双方在讨论区逐条回应。主题页保留双方原话，方便对照阅读而非只看单侧结论。</p>
+          <div class="topic-meta"><span>讨论热度 · 高</span><span class="go">查看主题 →</span></div>
+        </article>
+
+        <article class="topic" data-cat="review">
+          <div class="topic-top"><span class="topic-badge mint">复盘</span><span style="font-size:13px;color:#948da3">今日 18:10</span></div>
+          <h3>主题五：当事人回应的位置</h3>
+          <p>回应出现在爆料之后，内容与截图细节存在出入。主题页把两段表述并列，标注发布时间，不做结论性判断。</p>
+          <div class="topic-meta"><span>讨论热度 · 中</span><span class="go">查看主题 →</span></div>
+        </article>
+
+        <article class="topic" data-cat="talk">
+          <div class="topic-top"><span class="topic-badge gold">讨论</span><span style="font-size:13px;color:#948da3">今日 22:30</span></div>
+          <h3>主题六：热度收口与明日预告</h3>
+          <p>当日主题进入收口阶段，讨论逐渐降温。页面记录热度变化与明日待观察点，每日主题大赛在线的归档随之更新。</p>
+          <div class="topic-meta"><span>讨论热度 · 低</span><span class="go">查看主题 →</span></div>
+        </article>
+      </div>
+      <p class="empty-note" id="emptyNote">该类别今日暂无主题，换一个筛选条件看看。</p>
+    </div>
+  </section>
+
+  <!-- Timeline -->
+  <section id="timeline" class="timeline-sec">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow">Live Timeline</div>
+        <h2 class="sec-title">热点时间线</h2>
+        <p class="sec-desc">按发生顺序梳理当日大赛主题的关键节点，每一次补充都标出时间，方便判断信息是在何时出现的。</p>
+      </div>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-time">09:20 · 主题上线</div>
+          <h3>首帖发布，爆料进入视野</h3>
+          <p>当日主题由一条带截图的帖子开启，最初关注度有限，讨论多集中在截图真伪与发布时间。</p>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">13:45 · 二次传播</div>
+          <h3>黑料被整理成串，讨论升温</h3>
+          <p>有用户把相关旧帖整理成时间串，补充了前情。整理帖成为新的信息入口，也让部分细节被重新审视。</p>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">18:10 · 回应出现</div>
+          <h3>当事人表态，观点开始分叉</h3>
+          <p>回应贴出后，讨论区出现明显分歧：一方认为回应解释了疑点，另一方认为仍有未说明的部分。</p>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">22:30 · 收口归档</div>
+          <h3>热度回落，主题转入复盘</h3>
+          <p>当日讨论逐渐冷却，主题页转为复盘视角，保留各方原话与时间标记，供次日回看。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about">
+    <div class="wrap two-col">
+      <div class="explain">
+        <div class="sec-head" style="margin-bottom:18px">
+          <div class="eyebrow">How It Works</div>
+          <h2 class="sec-title">这个页面怎么逛</h2>
+        </div>
+        <p><strong>先看主题列表。</strong>每日主题大赛在线把当天的大赛主题按类别摆开，吃瓜爆料、话题复盘、讨论现场各有入口，先挑你关心的方向。</p>
+        <p><strong>再看时间线。</strong>同一件事的信息是分批出现的，时间线标出每个节点，能看出哪条内容先来、哪条是后补的，避免把后补信息当成起点。</p>
+        <p><strong>最后对照原话。</strong>主题页保留各方表述与发布时间，不做单一结论。看爆料也看回应，看热度也看信息缺口，这是本页一直坚持的呈现方式。</p>
+        <p class="note">页面内容为当日主题的聚合呈现，具体事实以主题页内标注的原始信息与时间为准。</p>
+      </div>
+      <div>
+        <div class="stat-grid">
+          <div class="stat"><div class="num">6<span>个</span></div><div class="lbl">今日在线主题</div></div>
+          <div class="stat"><div class="num">4<span>类</span></div><div class="lbl">主题筛选方向</div></div>
+          <div class="stat"><div class="num">4<span>段</span></div><div class="lbl">热点时间线节点</div></div>
+          <div class="stat"><div class="num">22:30<span></span></div><div class="lbl">当日收口时间</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="faq-sec">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow">Questions</div>
+        <h2 class="sec-title">常见疑问</h2>
+        <p class="sec-desc">关于每日主题大赛在线的更新节奏与浏览方式，集中回答几个最常被问到的问题。</p>
+      </div>
+      <div class="faq">
+        <div class="faq-item">
+          <h3>主题多久更新一次？</h3>
+          <p>按日更新。当日主题从上午开始陆续上线，晚间进入收口阶段，次日以复盘视角保留可回看内容。</p>
+        </div>
+        <div class="faq-item">
+          <h3>吃瓜爆料和黑料有什么区别？</h3>
+          <p>爆料偏重首发信息与截图，黑料多指围绕旧内容的集中整理。本页把两者分在不同主题卡片里，方便分别查看。</p>
+        </div>
+        <div class="faq-item">
+          <h3>为什么有的主题没有结论？</h3>
+          <p>信息分批出现时，结论往往需要时间。本页优先呈现各方原话与时间标记，未确认的部分保持原样，不代为下判断。</p>
+        </div>
+        <div class="faq-item">
+          <h3>手机上能看完整内容吗？</h3>
+          <p>可以。主题卡片在窄屏下自动改为单列，时间线与正文保持完整，筛选按钮同样可用。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="cta-strip">
+        <div>
+          <h2>把今日主题留在手边</h2>
+          <p>下载后可按日回看主题卡片与时间线记录，每日主题大赛在线的当日内容也能在本地留档。</p>
+        </div>
+        <a class="download-btn" href="#" data-download-placeholder="true" aria-disabled="true" tabindex="-1">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M4 21h16"/></svg>
+          下载
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <svg viewBox="0 0 64 64" aria-hidden="true">
+          <rect width="64" height="64" rx="14" fill="#241f33"/>
+          <circle cx="32" cy="32" r="17" fill="none" stroke="#ff5c7a" stroke-width="4"/>
+          <path d="M32 15v34M15 32h34" stroke="#ffb703" stroke-width="3"/>
+        </svg>
+        每日主题大赛在线
+      </div>
+      <nav class="foot-links" aria-label="页尾导航">
+        <a href="#topics">今日主题</a>
+        <a href="#timeline">热点时间线</a>
+        <a href="#about">怎么逛</a>
+        <a href="#faq">常见疑问</a>
+      </nav>
+    </div>
+    <div class="foot-bottom">
+      <span>每日主题大赛在线 · 当日主题、吃瓜黑料与热点时间线聚合</span>
+      <span class="kw">主题内容按日更新，事实以原始信息标注为准</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // 移动端菜单
+  var menuBtn = document.getElementById('menuBtn');
+  var navLinks = document.getElementById('navLinks');
+  menuBtn.addEventListener('click', function(){
+    var open = navLinks.classList.toggle('open');
+    menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  navLinks.addEventListener('click', function(e){
+    if(e.target.tagName === 'A'){
+      navLinks.classList.remove('open');
+      menuBtn.setAttribute('aria-expanded','false');
+    }
+  });
+
+  // 主题筛选
+  var chips = document.querySelectorAll('.chip');
+  var topics = document.querySelectorAll('#topicGrid .topic');
+  var emptyNote = document.getElementById('emptyNote');
+  chips.forEach(function(chip){
+    chip.addEventListener('click', function(){
+      chips.forEach(function(c){ c.classList.remove('active'); });
+      chip.classList.add('active');
+      var f = chip.getAttribute('data-filter');
+      var visible = 0;
+      topics.forEach(function(t){
+        var show = (f === 'all' || t.getAttribute('data-cat') === f);
+        t.style.display = show ? '' : 'none';
+        if(show) visible++;
+      });
+      emptyNote.style.display = visible === 0 ? 'block' : 'none';
+    });
+  });
+</script>
+</body>
+  </html>
